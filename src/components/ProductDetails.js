@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import { getSpecificProduct } from "../services/api";
 
 //react router dom
 import { Link } from "react-router-dom";
 
+//styles
+import styles from "./ProductDetails.module.css";
+
 const ProductDetails = () => {
-  // const [productData, setProductData] = useState({});
 
   const params = useParams();
   const id = params.id;
 
-  // useEffect(() => {
-  //   const fetchProduct = async () => {
-  //     setProductData(await getSpecificProduct(id));
-  //   };
-  //   fetchProduct();
-  // }, []);
 
   const products = useSelector((state) => state.productsState.products);
   const product = products[id - 1];
@@ -25,17 +20,22 @@ const ProductDetails = () => {
   const { title, price, description, category, image } = product;
 
   return (
-    <div>
-      <img src={image} alt="product-img" style={{ width: "200px" }} />
-      <div>
-        <h3>{title}</h3>
-        <p>{description}</p>
-        <p>{price}</p>
-        <p>
-          <span>Category : </span>
-          {category}
-        </p>
-        <Link to={"/products"}>back to shop</Link>
+    <div className={styles.productDetails__wrapper}>
+      <div className={styles.productDetails__container}>
+        <img src={image} alt="product" className={styles.img} />
+        <div className={styles.text}>
+          <h3 className={styles.title}>{title}</h3>
+          <p className={styles.desc}>{description}</p>
+          <p className={styles.category}>
+            <span>Category:</span> {category}
+          </p>
+          <div>
+            <span>{price}$</span>
+            <Link className={styles.details__btn} to={"/products"}>
+              Back to shop
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
