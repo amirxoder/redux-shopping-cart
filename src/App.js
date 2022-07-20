@@ -8,10 +8,18 @@ import Store from "./components/Store";
 import store from "./redux/store";
 import { Provider } from "react-redux";
 
+//react router dom
+import { Routes, Route, Navigate } from "react-router-dom";
+import ProductDetails from "./components/ProductDetails";
+
 function App() {
   return (
     <Provider store={store}>
-      <Store />
+      <Routes>
+        <Route path="/products" element={<Store />} />
+        <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/*" element={<Navigate to="/products" />} />
+      </Routes>
     </Provider>
   );
 }
